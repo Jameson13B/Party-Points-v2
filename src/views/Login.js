@@ -2,44 +2,45 @@ import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router'
 import styled from 'styled-components'
 
-import { auth, db } from '../firebase'
+import { db, loginUtil, statusUtil } from '../firebase'
 
 export const Login = (props) => {
   const [user, setUser] = useState(null)
   const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [code, setCode] = useState('')
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    auth.onAuthStateChanged((logInUser) => {
-      logInUser && setUser(logInUser)
-    })
+    const curUser = statusUtil()
+
+    if (curUser) setUser(curUser)
   }, [])
 
   const handleLogin = (e) => {
-    // Validation
     e.preventDefault()
-    if (!username || !password) setError('Username and Password Required')
+    // Validation
+    if (!username || !code) setError('Username and Password Required')
 
-    // Retrieve token
     db.collection('users')
       .where('username', '==', username)
-      .where('password', '==', password)
       .get()
       .then((querySnapshot) => {
-        querySnapshot.forEach((userObj) => {
-          console.log(userObj.data())
-          // Sign in with token
-          auth
-            .signInWithCustomToken(userObj.data().token)
-            .then((user) =>
-              props.history.push(
-                userObj.data().track === 'Teacher' ? '/teacher-portal' : '/student-portal',
-              ),
-            )
-            .catch((error) => setError(error.message))
-        })
+        if (querySnapshot.size === 0) {
+          setError('Incorrect Username and/or Password')
+        } else {
+          querySnapshot.forEach((userObj) => {
+            if (userObj.data().code === code) {
+              const user = { ...userObj.data(), id: userObj.id }
+
+              loginUtil(user)
+              setUser(user)
+            } else {
+              setError('Incorrect Username and/or Password')
+            }
+          })
+        }
       })
+      .catch((err) => setError(err))
   }
 
   if (user) {
@@ -63,9 +64,9 @@ export const Login = (props) => {
         <Input
           autoComplete="off"
           type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          id="code"
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
         />
         <Button onClick={handleLogin}>Login</Button>
         {error && <Feedback>{error}</Feedback>}

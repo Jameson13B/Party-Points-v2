@@ -2,28 +2,19 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { db, auth } from '../firebase'
+import { logoutUtil, statusUtil } from '../firebase'
 import Icon from '../components/Icon'
 
 export const TeacherPortal = (props) => {
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        // **May be able to get track off user now
-        db.collection('users')
-          .doc(user.uid)
-          .get()
-          .then((doc) => {
-            if (doc.data().track !== 'Teacher') {
-              props.history.push('/student-portal')
-            }
-          })
-      } else {
-        props.history.push('/login')
-      }
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    const curUser = statusUtil()
+
+    if (!curUser) {
+      props.history.push('/login')
+    } else if (curUser.track !== 'Teacher') {
+      props.history.push('/student-portal')
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Container>
@@ -31,31 +22,31 @@ export const TeacherPortal = (props) => {
       <BtnPanel>
         <IconBtn>
           <CstmLink to="/dashboard">
-            <p>Dashboard</p>
+            <p>Dashboard - Soon</p>
             <Icon icon="dashboard" />
           </CstmLink>
         </IconBtn>
         <IconBtn>
           <CstmLink to="/reporting">
-            <p>Reporting</p>
+            <p>Reporting - Soon</p>
             <Icon icon="description" />
           </CstmLink>
         </IconBtn>
         <IconBtn>
           <CstmLink to="/store">
-            <p>Store</p>
+            <p>Store - Soon</p>
             <Icon icon="store" />
           </CstmLink>
         </IconBtn>
         <IconBtn>
           <CstmLink to="/recognition">
-            <p>Recognition</p>
+            <p>Recognition - Soon</p>
             <Icon icon="star" />
           </CstmLink>
         </IconBtn>
         <IconBtn>
           <CstmLink to="/edit-user">
-            <p>Update User</p>
+            <p>Update User - Soon</p>
             <Icon icon="person" />
           </CstmLink>
         </IconBtn>
@@ -68,7 +59,8 @@ export const TeacherPortal = (props) => {
       </BtnPanel>
       <Logout
         onClick={() => {
-          auth.signOut()
+          logoutUtil()
+          props.history.push('/login')
         }}
       >
         Logout
