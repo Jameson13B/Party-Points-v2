@@ -22,7 +22,7 @@ export const TeacherPortal = (props) => {
       <BtnPanel>
         <IconBtn>
           <CstmLink to="/dashboard">
-            <p>Dashboard - Soon</p>
+            <p>Dashboard</p>
             <Icon icon="dashboard" />
           </CstmLink>
         </IconBtn>
