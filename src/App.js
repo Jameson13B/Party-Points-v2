@@ -5,6 +5,7 @@ import { EditUser } from './views/EditUser'
 import { Login } from './views/Login'
 import { Register } from './views/Register'
 import { TeacherPortal } from './views/TeacherPortal'
+import { Dashboard } from './views/Dashboard'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/teacher-portal" component={TeacherPortal} />
+        <Route path="/dashboard" component={Dashboard} />
         <Route path="/edit-user" component={EditUser} />
       </Switch>
     </div>
