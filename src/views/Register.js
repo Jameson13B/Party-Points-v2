@@ -64,7 +64,7 @@ export const Register = (props) => {
           value={state.track}
           onChange={(e) => setState({ ...state, track: e.target.value })}
         />
-        <Label>Email:</Label>
+        <Label>Username:</Label>
         <Input
           autoComplete="off"
           type="text"
