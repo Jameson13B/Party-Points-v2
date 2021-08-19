@@ -30,7 +30,7 @@ commander
 function deployToFirebase() {
   logStart('firebase')
   execPrint('yarn build')
-  execPrint(`firebase deploy`)
+  execPrint(`firebase deploy --only hosting:partypoint`)
   logDone()
 }
 
