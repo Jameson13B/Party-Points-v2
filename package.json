@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "colors": "^1.4.0",
     "commander": "^8.1.0",
     "cors": "^2.8.5",
     "cra-template": "1.1.2",
