@@ -46,7 +46,7 @@ export const TeacherPortal = (props) => {
         </IconBtn>
         <IconBtn>
           <CstmLink to="/edit-user">
-            <p>Update User - Soon</p>
+            <p>Update User</p>
             <Icon icon="person" />
           </CstmLink>
         </IconBtn>
