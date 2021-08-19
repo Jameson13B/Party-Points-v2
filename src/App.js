@@ -7,7 +7,7 @@ import { Register } from './views/Register'
 import { TeacherPortal } from './views/TeacherPortal'
 import { Dashboard } from './views/Dashboard'
 import { Profile } from './views/Profile'
-// import { Reporting } from './views/Reporting'
+import { Reporting } from './views/Reporting'
 import { Store } from './views/Store'
 import { Recognition } from './views/Recognition'
 import { Student } from './views/Student'
@@ -22,7 +22,7 @@ function App() {
         <Route path="/register" component={Register} />
         <Route path="/teacher-portal" component={TeacherPortal} />
         <Route path="/dashboard" component={Dashboard} />
-        {/* <Route path="/reporting" component={Reporting} /> */}
+        <Route path="/reporting" component={Reporting} />
         <Route path="/store" component={Store} />
         <Route path="/recognition" component={Recognition} />
         <Route path="/edit-user" component={EditUser} />
