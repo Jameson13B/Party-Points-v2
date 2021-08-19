@@ -11,7 +11,7 @@ import { Profile } from './views/Profile'
 import { Store } from './views/Store'
 import { Recognition } from './views/Recognition'
 import { Student } from './views/Student'
-// import { Shopping } from './views/Shopping'
+import { Shopping } from './views/Shopping'
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
         <Route path="/edit-user" component={EditUser} />
         <Route path="/profile/:id" component={Profile} />
         <Route path="/student-portal" component={Student} />
-        {/* <Route path="/shopping" component={Shopping} /> */}
+        <Route path="/shopping" component={Shopping} />
       </Switch>
     </div>
   )

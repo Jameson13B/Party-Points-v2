@@ -15,10 +15,10 @@ export const Store = () => {
     db.collection('settings')
       .doc('main')
       .onSnapshot((doc) => setStoreOpen(doc.data().storeOpen))
-  }, [storeOpen])
+  }, [])
 
   const toggleStore = () => {
-    db.collection('settings').doc('1').update({ storeOpen: !storeOpen })
+    db.collection('settings').doc('main').update({ storeOpen: !storeOpen })
   }
 
   return (
