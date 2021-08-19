@@ -8,7 +8,7 @@ import { TeacherPortal } from './views/TeacherPortal'
 import { Dashboard } from './views/Dashboard'
 import { Profile } from './views/Profile'
 // import { Reporting } from './views/Reporting'
-// import { Store } from './views/Store'
+import { Store } from './views/Store'
 import { Recognition } from './views/Recognition'
 import { Student } from './views/Student'
 // import { Shopping } from './views/Shopping'
@@ -23,7 +23,7 @@ function App() {
         <Route path="/teacher-portal" component={TeacherPortal} />
         <Route path="/dashboard" component={Dashboard} />
         {/* <Route path="/reporting" component={Reporting} /> */}
-        {/* <Route path="/store" component={Store} /> */}
+        <Route path="/store" component={Store} />
         <Route path="/recognition" component={Recognition} />
         <Route path="/edit-user" component={EditUser} />
         <Route path="/profile/:id" component={Profile} />

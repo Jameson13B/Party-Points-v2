@@ -34,7 +34,7 @@ export const TeacherPortal = (props) => {
         </IconBtn>
         <IconBtn>
           <CstmLink to="/store">
-            <p>Store - Soon</p>
+            <p>Store</p>
             <Icon icon="store" />
           </CstmLink>
         </IconBtn>
