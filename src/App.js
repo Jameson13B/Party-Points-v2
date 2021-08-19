@@ -10,7 +10,7 @@ import { Profile } from './views/Profile'
 // import { Reporting } from './views/Reporting'
 // import { Store } from './views/Store'
 import { Recognition } from './views/Recognition'
-// import { Student } from './views/Student'
+import { Student } from './views/Student'
 // import { Shopping } from './views/Shopping'
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
         <Route path="/recognition" component={Recognition} />
         <Route path="/edit-user" component={EditUser} />
         <Route path="/profile/:id" component={Profile} />
-        {/* <Route path="/student-portal" component={Student} /> */}
+        <Route path="/student-portal" component={Student} />
         {/* <Route path="/shopping" component={Shopping} /> */}
       </Switch>
     </div>
@@ -35,3 +35,5 @@ function App() {
 }
 
 export default App
+
+// Add Update Recognition Feature
