@@ -23,13 +23,20 @@ export const PurchaseLog = (props) => {
       })
   }, [])
 
+  const handleClaim = (log) =>
+    db
+      .collection('purchases')
+      .doc(log.id)
+      .update({ claimed: !log.claimed })
+      .catch(() => alert('Error claiming. Try again.'))
+
   return (
     <Container>
       {logs.map((log) => {
         const date = moment(log.date.toDate())
 
         return (
-          <Entry key={log.id}>
+          <Entry claimed={log.claimed} key={log.id} onClick={() => handleClaim(log)}>
             <p>{log.postedBy.name}</p>
             <p>
               {log.description} - {log.change}
@@ -55,8 +62,9 @@ const Entry = styled.div`
   justify-content: space-between;
   padding: 15px 10px;
   border-top: 1px solid white;
-  p {
+  & > p {
     margin: 5px 0;
+    text-decoration: ${(props) => (props.claimed ? 'line-through' : 'none')};
   }
   :last-child {
     border-bottom: 1px solid white;

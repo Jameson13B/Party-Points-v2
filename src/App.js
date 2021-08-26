@@ -35,3 +35,5 @@ function App() {
 }
 
 export default App
+
+// Max purchase one of each item - You can only buy 1 {type}.
