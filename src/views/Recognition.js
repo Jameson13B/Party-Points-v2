@@ -48,7 +48,21 @@ export const Recognition = (props) => {
     if (!state.form.title || !state.form.points) {
       dispatch({ type: 'set_feedback', payload: 'Title and points cannot be blank' })
     } else if (state.form.id) {
-      alert('Update feature coming soon! Sorry.')
+      const item = {
+        title: state.form.title,
+        points: parseInt(state.form.points),
+      }
+
+      db.collection(state.display)
+        .doc(state.form.id)
+        .update(item)
+        .then(() =>
+          dispatch({
+            type: 'form_update',
+            payload: { form: initialState.form, feedback: initialState.feedback },
+          }),
+        )
+        .catch(() => alert('Error Updating: Please try again'))
     } else {
       const item = {
         title: state.form.title,
@@ -89,10 +103,16 @@ export const Recognition = (props) => {
           <h3>Recognition</h3>
         </Title>
         <div>
-          <NavBtn onClick={() => dispatch({ type: 'set_display', payload: 'positive' })}>
+          <NavBtn
+            active={state.display === 'positive'}
+            onClick={() => dispatch({ type: 'set_display', payload: 'positive' })}
+          >
             Positive
           </NavBtn>
-          <NavBtn onClick={() => dispatch({ type: 'set_display', payload: 'negative' })}>
+          <NavBtn
+            active={state.display === 'negative'}
+            onClick={() => dispatch({ type: 'set_display', payload: 'negative' })}
+          >
             Negative
           </NavBtn>
         </div>
@@ -173,7 +193,7 @@ const CstmLink = styled(Link)`
 `
 const NavBtn = styled.button`
   align-self: center;
-  background: transparent;
+  background: ${(props) => (props.active ? '#444' : 'transparent')};
   border: 1px solid white;
   border-radius: 15px;
   color: white;
