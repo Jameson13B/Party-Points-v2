@@ -38,35 +38,54 @@ export const Shopping = (props) => {
     if (item.amount > user.balance) {
       setFeedback('Error: Not enough Party Points')
     } else {
+      // Set date to 1am this morning
+      let date = new Date()
+      date.setHours(0, 0, 1, 0)
       const userRef = db.collection('users').doc(user.id)
       const logRef = db.collection('log').doc()
       const purchasesRef = db.collection('purchases').doc()
       const batch = db.batch()
 
-      batch.update(userRef, { balance: user.balance - item.amount })
-      batch.set(logRef, {
-        change: item.amount,
-        description: item.title,
-        user: user.id,
-        balance: user.balance - item.amount,
-        date: serverTimestamp(),
-      })
-      batch.set(purchasesRef, {
-        change: item.amount,
-        description: `Purchased ${item.title}`,
-        date: serverTimestamp(),
-        postedBy: { id: user.id, name: user.name },
-      })
+      db.collection('purchases')
+        .where('postedBy.id', '==', user.id)
+        .where('date', '>=', date)
+        .get()
+        .then((res) => {
+          res.forEach((doc) => {
+            if (doc.exists && doc.data().description.includes(item.title)) {
+              alert(`You can only buy 1 ${item.title} each day.`)
+            } else {
+              // If allowed, update the users balance, add purchase to the log,
+              // and create the purchase
+              batch.update(userRef, { balance: user.balance - item.amount })
+              batch.set(logRef, {
+                change: item.amount,
+                description: item.title,
+                user: user.id,
+                balance: user.balance - item.amount,
+                date: serverTimestamp(),
+              })
+              batch.set(purchasesRef, {
+                change: item.amount,
+                description: `Purchased ${item.title}`,
+                date: serverTimestamp(),
+                postedBy: { id: user.id, name: user.name },
+                claimed: false,
+                itemId: item.id,
+              })
 
-      batch
-        .commit()
-        .then(() => {
-          setUser({ ...user, balance: user.balance - item.amount })
-          setFeedback(`Successfully purchased ${item.title}`)
-        })
-        .catch((err) => {
-          console.log(err)
-          setFeedback('Error: Please try again')
+              batch
+                .commit()
+                .then(() => {
+                  setUser({ ...user, balance: user.balance - item.amount })
+                  setFeedback(`Successfully purchased ${item.title}`)
+                })
+                .catch((err) => {
+                  console.log(err)
+                  setFeedback('Error: Please try again')
+                })
+            }
+          })
         })
     }
   }
