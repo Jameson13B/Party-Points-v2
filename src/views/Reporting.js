@@ -39,7 +39,7 @@ export const Reporting = (props) => {
           <CstmLink to="/">
             <Icon icon="home" />
           </CstmLink>
-          <h3>Reporting</h3>
+          <Title>Reporting</Title>
           {/* Student Dropodown */}
           <Select onChange={(e) => setStudent(e.target.value)} value={student}>
             <option value="">Select Student</option>
@@ -110,10 +110,14 @@ const View = styled.div`
 `
 const Header = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
   width: 75%;
   height: 9vh;
+  @media (max-height: 675px) {
+    height: 20vh;
+  }
 `
 const CstmLink = styled(Link)`
   text-decoration: none;
@@ -122,6 +126,14 @@ const CstmLink = styled(Link)`
   margin-right: 15px;
   :hover {
     color: #bbb;
+  }
+  @media (max-height: 675px) {
+    width: 10%;
+  }
+`
+const Title = styled.h3`
+  @media (max-height: 675px) {
+    width: 25%;
   }
 `
 const Select = styled.select`
@@ -139,6 +151,9 @@ const Select = styled.select`
   option {
     text-transform: uppercase;
   }
+  @media (max-height: 675px) {
+    width: 50%;
+  }
 `
 const DateInput = styled.input`
   background: #444;
@@ -154,6 +169,9 @@ const DateInput = styled.input`
   :focus {
     outline: none;
   }
+  @media (max-height: 675px) {
+    width: 100%;
+  }
 `
 const DateLabel = styled.h1`
   margin-left: 20px;
@@ -162,10 +180,13 @@ const DateLabel = styled.h1`
 const Body = styled.div`
   border: 1px solid white;
   border-radius: 15px;
-  height: 84vh
+  height: 84vh;
   padding: 2vh;
   width: 75%;
   overflow: auto;
+  @media (max-height: 675px) {
+    height: 75vh;
+  }
 `
 const Entry = styled.div`
   display: flex;
