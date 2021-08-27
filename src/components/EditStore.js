@@ -196,6 +196,10 @@ const Input = styled.input`
   :focus {
     outline: none;
   }
+  @media (max-height: 675px) {
+    font-size: 1rem;
+    margin: 10px 0;
+  }
 `
 const SubmitBtn = styled.button`
   background: transparent;
@@ -204,12 +208,15 @@ const SubmitBtn = styled.button`
   color: white;
   cursor: pointer;
   display: inline;
-  font-size: 1.5rem;
+  font-size: 100%;
   padding: 15px;
   margin: 15px 0;
   width: ${(props) => props.width}
   :hover {
     background: #444;
+  }
+  @media (max-height: 675px) {
+    padding: 5px;
   }
 `
 const Feedback = styled.p`

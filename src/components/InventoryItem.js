@@ -26,6 +26,7 @@ export const InventoryItem = (props) => {
 const Container = styled.div`
   border: 1px solid white;
   border-radius: 15px;
+  box-sizing: border-box;
   flex-shrink: 0;
   margin-bottom: 15px;
   max-width: 550px;
@@ -41,9 +42,15 @@ const Container = styled.div`
   p {
     margin: 10px 0;
   }
+  @media (max-height: 675px) {
+    padding: 0px;
+  }
 `
 const Title = styled.p`
   font-size: 1.5rem;
+  @media (max-height: 675px) {
+    font-size: 1.25rem;
+  }
 `
 const Description = styled.p`
   font-size: 1rem;
@@ -51,4 +58,7 @@ const Description = styled.p`
 `
 const Amount = styled.p`
   font-size: 1.5rem;
+  @media (max-height: 675px) {
+    font-size: 1.25rem;
+  }
 `
