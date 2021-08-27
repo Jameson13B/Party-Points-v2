@@ -156,7 +156,13 @@ export const Recognition = (props) => {
             />
             <CreateBtn onClick={handleSubmit}>{state.form.id ? 'Update' : 'Create'}</CreateBtn>
           </FormA>
-          <FormB>{state.form.id && <DeleteBtn onClick={handleDelete}>Delete</DeleteBtn>}</FormB>
+          <FormB>
+            {state.form.id && (
+              <DeleteBtn onClick={handleDelete}>
+                <p>Delete</p>
+              </DeleteBtn>
+            )}
+          </FormB>
         </Form>
       </Body>
     </Container>
@@ -206,6 +212,10 @@ const NavBtn = styled.button`
   :hover {
     background: #444;
   }
+  @media (max-width: 500px) {
+    font-size: 0.75rem;
+    padding: 5px;
+  }
 `
 const Body = styled.div`
   display: flex;
@@ -223,6 +233,9 @@ const ItemList = styled.div`
   flex-wrap: wrap;
   height: 75%;
   overflow: auto;
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `
 const Item = styled.div`
   border: 1px solid white;
@@ -241,6 +254,10 @@ const Item = styled.div`
   p {
     font-size: 25px;
     margin: 13px 0;
+  }
+  @media (max-width: 500px) {
+    box-sizing: border-box;
+    width: 100%;
   }
 `
 const Form = styled.form`
@@ -284,6 +301,9 @@ const CreateBtn = styled.button`
   font-size: 1.5rem;
   padding: 15px;
   margin: 15px 0;
+  @media (max-width: 500px) {
+    font-size: 1rem;
+  }
 `
 const DeleteBtn = styled.button`
   background: transparent;
@@ -294,4 +314,12 @@ const DeleteBtn = styled.button`
   font-size: 1.5rem;
   padding: 15px;
   margin: 15px 0;
+  @media (max-width: 500px) {
+    font-size: 1rem;
+    padding: 10px;
+    p {
+      text-orientation: upright;
+      writing-mode: vertical-rl;
+    }
+  }
 `
