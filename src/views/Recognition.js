@@ -81,6 +81,8 @@ export const Recognition = (props) => {
     }
   }
   const handleDelete = (e) => {
+    e.preventDefault()
+
     db.collection(state.display)
       .doc(state.form.id)
       .delete()
@@ -126,8 +128,8 @@ export const Recognition = (props) => {
             </Item>
           ))}
         </ItemList>
-        <Form onSubmit={handleSubmit}>
-          <FormA>
+        <Form>
+          <FormA onSubmit={handleSubmit}>
             <Input
               name="points"
               value={state.form.points}
@@ -152,7 +154,7 @@ export const Recognition = (props) => {
               }
               autoComplete="off"
             />
-            <CreateBtn type="submit">{state.form.id ? 'Update' : 'Create'}</CreateBtn>
+            <CreateBtn onClick={handleSubmit}>{state.form.id ? 'Update' : 'Create'}</CreateBtn>
           </FormA>
           <FormB>{state.form.id && <DeleteBtn onClick={handleDelete}>Delete</DeleteBtn>}</FormB>
         </Form>
