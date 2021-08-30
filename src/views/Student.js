@@ -15,8 +15,14 @@ export const Student = (props) => {
       props.history.push('/login')
     } else if (curUser.track === 'Teacher') {
       props.history.push('/teacher-portal')
+    } else {
+      db.collection('users')
+        .doc(curUser.id)
+        .onSnapshot((res) => {
+          setUser({ ...res.data(), id: res.id })
+        })
     }
-    setUser(curUser)
+
     db.collection('settings')
       .doc('main')
       .onSnapshot((doc) => setStoreOpen(doc.data().storeOpen))
