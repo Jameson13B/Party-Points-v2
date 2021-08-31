@@ -22,11 +22,12 @@ export const serverTimestamp = () => firebase.firestore.FieldValue.serverTimesta
 
 // Authorization instance
 export const loginUtil = (user) => {
+  localStorage.removeItem('ppuser')
   const payload = JSON.stringify(user)
 
   user.track === 'Teacher'
     ? sessionStorage.setItem('ppuser', payload)
-    : localStorage.setItem('ppuser', payload)
+    : sessionStorage.setItem('ppuser', payload)
 }
 
 export const logoutUtil = (user) => {
@@ -35,13 +36,13 @@ export const logoutUtil = (user) => {
   if (teacher) {
     sessionStorage.removeItem('ppuser')
   } else {
-    localStorage.removeItem('ppuser')
+    sessionStorage.removeItem('ppuser')
   }
 }
 
 export const statusUtil = () => {
   const teacher = sessionStorage.getItem('ppuser')
-  const student = localStorage.getItem('ppuser')
+  const student = sessionStorage.getItem('ppuser')
 
   if (teacher) {
     return JSON.parse(teacher)
